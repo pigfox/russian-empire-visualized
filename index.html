@@ -30,33 +30,33 @@
             font-size: 16px;
             margin: 5px;
             cursor: pointer;
+            background-color: white;
+            border: none;
+            color: black;
         }
-        /* Placeholder div ensures the layout doesn't shift */
         .spinner-container {
-            height: 50px; /* Set this to match the spinner size */
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         #spinner {
             display: none;
-            max-width: 50px; /* Maintain proper proportions */
+            max-width: 50px;
             max-height: 50px;
-            object-fit: contain; /* Prevents distortion */
+            object-fit: contain;
         }
     </style>
 </head>
 <body>
-    <img id="slideshow" src="step1.png" alt="The Russian Empire Visualized">
+    <img id="slideshow" src="step1.webp" alt="The Russian Empire Visualized">
     
-    <!-- Spinner container to prevent layout shift -->
     <div class="spinner-container">
         <img id="spinner" src="spinner.gif" alt="Animation in action"/>
     </div>
 
     <div class="controls">
-        <button id="startBtn">Start</button>
-        <button id="restartBtn">Restart</button>
+        <button id="runBtn">Run</button>
     </div>
     
     <script>
@@ -65,16 +65,17 @@
         let interval;
         const spinner = document.getElementById("spinner");
         const slideshow = document.getElementById("slideshow");
+        const runBtn = document.getElementById("runBtn");
 
         function startSlideshow() {
             if (!interval) {
-                spinner.style.display = "block"; // Show spinner
+                spinner.style.display = "block";
                 interval = setInterval(() => {
                     index++;
                     if (index >= images.length) {
                         clearInterval(interval);
                         interval = null;
-                        spinner.style.display = "none"; // Hide spinner when animation stops
+                        spinner.style.display = "none";
                         return;
                     }
                     slideshow.src = images[index];
@@ -90,8 +91,11 @@
             startSlideshow();
         }
 
-        document.getElementById("startBtn").addEventListener("click", startSlideshow);
-        document.getElementById("restartBtn").addEventListener("click", restartSlideshow);
+        window.onload = () => {
+            slideshow.src = images[0];
+        };
+
+        runBtn.addEventListener("click", restartSlideshow);
     </script>
 </body>
 </html>
