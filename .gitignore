@@ -23,5 +23,4 @@ go.work.sum
 
 # env file
 .env
-favicon.png
-spinner.mp4
+stuff/

@@ -17,6 +17,10 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            color:white;
+        }
+        h1 {
+            margin-bottom: 5px; /* Adjusted margin */
         }
         img {
             max-width: 100%;
@@ -41,7 +45,7 @@
             justify-content: center;
         }
         #spinner {
-            display: none;
+            visibility: hidden;
             max-width: 50px;
             max-height: 50px;
             object-fit: contain;
@@ -49,6 +53,7 @@
     </style>
 </head>
 <body>
+    <h1>The Russian Empire Visualized</h1>
     <img id="slideshow" src="step1.webp" alt="The Russian Empire Visualized">
     
     <div class="spinner-container">
@@ -69,13 +74,13 @@
 
         function startSlideshow() {
             if (!interval) {
-                spinner.style.display = "block";
+                spinner.style.visibility = "visible";
                 interval = setInterval(() => {
                     index++;
                     if (index >= images.length) {
                         clearInterval(interval);
                         interval = null;
-                        spinner.style.display = "none";
+                        spinner.style.visibility = "hidden";
                         return;
                     }
                     slideshow.src = images[index];
