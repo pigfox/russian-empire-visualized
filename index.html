@@ -31,10 +31,29 @@
             margin: 5px;
             cursor: pointer;
         }
+        /* Placeholder div ensures the layout doesn't shift */
+        .spinner-container {
+            height: 50px; /* Set this to match the spinner size */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #spinner {
+            display: none;
+            max-width: 50px; /* Maintain proper proportions */
+            max-height: 50px;
+            object-fit: contain; /* Prevents distortion */
+        }
     </style>
 </head>
 <body>
     <img id="slideshow" src="step1.png" alt="The Russian Empire Visualized">
+    
+    <!-- Spinner container to prevent layout shift -->
+    <div class="spinner-container">
+        <img id="spinner" src="spinner.gif" alt="Animation in action"/>
+    </div>
+
     <div class="controls">
         <button id="startBtn">Start</button>
         <button id="restartBtn">Restart</button>
@@ -44,17 +63,21 @@
         const images = ["step1.png", "step2.png", "step3.png", "step1.png"];
         let index = 0;
         let interval;
+        const spinner = document.getElementById("spinner");
+        const slideshow = document.getElementById("slideshow");
 
         function startSlideshow() {
             if (!interval) {
+                spinner.style.display = "block"; // Show spinner
                 interval = setInterval(() => {
                     index++;
                     if (index >= images.length) {
                         clearInterval(interval);
                         interval = null;
+                        spinner.style.display = "none"; // Hide spinner when animation stops
                         return;
                     }
-                    document.getElementById("slideshow").src = images[index];
+                    slideshow.src = images[index];
                 }, 2000);
             }
         }
@@ -63,7 +86,7 @@
             clearInterval(interval);
             interval = null;
             index = 0;
-            document.getElementById("slideshow").src = images[index];
+            slideshow.src = images[index];
             startSlideshow();
         }
 
